@@ -1,0 +1,61 @@
+
+<div class="d-flex justify-content-center">
+    <div class="loader" *ngIf="this.authService.isLoading$ | async">
+    </div>
+</div>
+
+<div class="main">
+    <div class="container">
+
+      <h3 class="title text-center">Login</h3>
+      <div class="content pt-0">
+        
+        <!----------Form ------>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="user-details d-inline">
+  
+            <!-- password -->
+            <div class="input-box w-100">
+              <label class="details">Email</label>
+              <input type="email" formControlName="email" placeholder="your-email@gmail.com" id="email">
+                  <small class="form-text text-muted"
+                  *ngIf="(loginForm.controls.email.touched || submitted===true) && loginForm.controls.email.errors?.required">
+                  Please enter email address.!
+              </small>
+              
+              <small class="form-text text-muted" *ngIf="(loginForm.controls.email.touched || submitted===true) && loginForm.controls.email.errors?.email">
+                  Email address not well formed.!
+              </small>
+            </div>
+            <div class="input-box w-100">
+              <label class="details">Password</label>
+              <input type="password"  formControlName="password" placeholder="Your Password" id="password">
+              <small class="form-text text-muted" *ngIf="loginForm.controls.password.errors?.['minlength'] || 
+              loginForm.controls.password.errors?.['maxlength']">
+                  Please enter password of length 8 to 12
+              </small>
+              
+              <small class="form-text text-muted" *ngIf="loginForm.controls.password.errors?.['required']
+                                  &&(loginForm.controls.password.touched || submitted===true)">
+                  Password is required!
+              </small>
+  
+            </div>
+          </div>
+          <!-- Submit -->
+  
+          <div class="alert alert-danger" style="padding-top:2%;" *ngIf="this.error!=null">
+            <p>{{ this.error}}</p>
+          </div>
+          <button type="submit" class="button">Login</button>
+          <div class="d-flex justify-content-between flex-wrap">
+            <p class="register mb-2">Not a member? <a routerLink="/auth/signup" 
+              routerLinkActive="active">Register here !</a></p>
+            <!-- <a href="./forgot.html" class="forgot-pass">Forgot Password?</a> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+    
